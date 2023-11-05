@@ -1,45 +1,60 @@
 #include "lists.h"
 
 /**
+ * reverse - reverses the second half of the linked list
+ * @head: double pointer to the head of the second half
+ * Return: pointer to the head of the reversed list
+ */
+listint_t *reverse(listint_t **head)
+{
+    listint_t *prev = NULL, *next = NULL, *current = *head;
+    while (current)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}
+
+/**
  * is_palindrome - checks if a singly linked list is a palindrome
  * @head: double pointer to the head of the list
  * Return: 0 if not palindrome, 1 if palindrome
  */
 int is_palindrome(listint_t **head)
 {
-    listint_t *tmp = *head;
-    int nodes = 0, i = 0, j = 0;
-    int *arr;
-
     if (!head || !(*head) || !((*head)->next))
         return (1);
 
-    while (tmp)
+    listint_t *slow = *head, *fast = *head, *second_half;
+
+    while (fast != NULL && fast->next != NULL)
     {
-        nodes++;
-        tmp = tmp->next;
+        slow = slow->next;
+        fast = fast->next->next;
     }
 
-    arr = malloc(sizeof(int) * nodes);
-    if (!arr)
-        return (0);
-
-    tmp = *head;
-    while (tmp)
+    if (fast != NULL)
     {
-        arr[i++] = tmp->n;
-        tmp = tmp->next;
+        slow = slow->next;
     }
 
-    for (i = 0, j = nodes - 1; i < j; i++, j--)
+    second_half = slow;
+    second_half = reverse(&second_half);
+
+    while (second_half && (*head))
     {
-        if (arr[i] != arr[j])
+        if (second_half->n != (*head)->n)
         {
-            free(arr);
+            reverse(&second_half);
             return (0);
         }
+        second_half = second_half->next;
+        *head = (*head)->next;
     }
 
-    free(arr);
+    reverse(&second_half);
     return (1);
 }
