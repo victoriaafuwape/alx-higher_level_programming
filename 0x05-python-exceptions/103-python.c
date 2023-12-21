@@ -2,9 +2,30 @@
 
 void print_python_float(PyObject *p)
 {
-    double val = PyFloat_AsDouble(p);
+    double val;
+    char *str_val;
+
+    if (!PyFloat_Check(p))
+    {
+        printf("[.] float object info\n");
+        printf("  [ERROR] Invalid Float Object\n");
+        return;
+    }
+
+    val = PyFloat_AsDouble(p);
+    str_val = PyOS_double_to_string(val, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
+
+    if (str_val == NULL)
+    {
+        printf("[.] float object info\n");
+        printf("  [ERROR] Failed to convert float to string\n");
+        return;
+    }
+
     printf("[.] float object info\n");
-    printf("  value: %g\n", val);
+    printf("  value: %s\n", str_val);
+
+    PyMem_Free(str_val);
 }
 
 /**
