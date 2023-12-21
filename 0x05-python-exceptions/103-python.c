@@ -2,10 +2,19 @@
 
 void print_python_float(PyObject *p)
 {
-    double val = PyFloat_AsDouble(p);
+    double val;
+
+    if (!PyFloat_Check(p))
+    {
+        printf("[.] float object info\n");
+        printf("  [ERROR] Invalid Float Object\n");
+        return;
+    }
+
+    val = PyFloat_AsDouble(p);
 
     printf("[.] float object info\n");
-    printf("  value: %g\n", val);
+    printf("  value: %.17g\n", val);
 }
 
 /**
