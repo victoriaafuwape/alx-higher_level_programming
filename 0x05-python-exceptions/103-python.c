@@ -3,7 +3,7 @@
 void print_python_float(PyObject *p)
 {
     double val;
-    char *float_str;
+    const char *float_str;
     PyObject *val_repr;
 
     if (!PyFloat_Check(p)) {
