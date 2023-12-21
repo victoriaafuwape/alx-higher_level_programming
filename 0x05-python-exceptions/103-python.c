@@ -6,8 +6,7 @@
  */
 void print_python_list(PyObject *p)
 {
-    PyObject *len_func, *size;
-    Py_ssize_t list_size;
+    PyListObject *list = (PyListObject *)p;
     Py_ssize_t i;
     PyObject *item;
 
@@ -17,18 +16,13 @@ void print_python_list(PyObject *p)
         return;
     }
 
-     len_func = PyObject_GetAttrString(p, "__len__");
-    if (!len_func) return;
-    size = PyObject_CallObject(len_func, NULL);
-    if (!size) return;
-    list_size = PyLong_AsSsize_t(size);
-
     printf("[*] Python list info\n");
-    printf("[*] Size of the Python List = %zd\n", list_size);
+    printf("[*] Size of the Python List = %zd\n", list->ob_base.ob_size);
+    printf("[*] Allocated = %zd\n", list->allocated);
 
-    for (i = 0; i < list_size; ++i)
+    for (i = 0; i < list->ob_base.ob_size; i++)
     {
-        item = PyList_GetItem(p, i);
+        item = list->ob_item[i];
         printf("Element %zd: ", i);
         if (PyBytes_Check(item))
         {
@@ -36,8 +30,6 @@ void print_python_list(PyObject *p)
             print_python_bytes(item);
         }
     }
-    Py_DECREF(len_func);
-    Py_DECREF(size);
 }
 
 /**

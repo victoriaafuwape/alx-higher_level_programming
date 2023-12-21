@@ -2,6 +2,7 @@
 #define MAIN_H
 
 #include <Python.h>
+#include <listobject.h>
 #include <stdio.h>
 
 void print_python_list(PyObject *p);
