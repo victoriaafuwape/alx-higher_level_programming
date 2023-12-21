@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """Module 1-square with class Square that defines a square."""
 
 
