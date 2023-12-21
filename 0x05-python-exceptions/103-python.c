@@ -1,3 +1,5 @@
+#include "main.h"
+
 /**
  * print_python_list - Prints basic info about Python lists
  * @p: PyObject pointer to the Python list
