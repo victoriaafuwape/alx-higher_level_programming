@@ -63,7 +63,7 @@ void print_python_bytes(PyObject *p)
 	if (!PyBytes_Check(p))
 	{
 		printf("[.] bytes object info\n");
-		printf("[ERROR] Invalid Bytes Object\n");
+		printf("  [ERROR] Invalid Bytes Object\n");
 		return;
 	}
 	if (PyObject_GetBuffer(p, &view, PyBUF_SIMPLE) != 0)
