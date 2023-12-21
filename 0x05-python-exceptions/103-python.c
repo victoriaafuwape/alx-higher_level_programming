@@ -42,10 +42,6 @@ void print_python_bytes(PyObject *p)
 	for (i = 0; i < bytes_to_print; ++i)
 	{
 		printf("%02x ", (unsigned char)(((char *)view.buf)[i]));
-		if (i < 9)
-		{
-			printf(" ");
-		}
 	}
 	if (view.len < 10)
 	{
