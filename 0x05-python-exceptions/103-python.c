@@ -40,6 +40,7 @@ void print_python_list(PyObject *p)
 
     if (!PyList_Check(p))
     {
+	printf("[*] Python list info\n");
         printf("[ERROR] Invalid List Object\n");
         return;
     }
