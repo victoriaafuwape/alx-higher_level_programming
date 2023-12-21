@@ -91,16 +91,3 @@ void print_python_bytes(PyObject *p)
 	printf("\n");
 	PyBuffer_Release(&view);
 }
-
-/**
- * print_python_float - Prints basic info about Python float objects
- * @p: PyObject pointer to the Python float object
- */
-void print_python_float(PyObject *p)
-{
-	if (!PyFloat_Check(p))
-	{
-		printf("[ERROR] Invalid Float Object\n");
-		return;
-	}
-}
