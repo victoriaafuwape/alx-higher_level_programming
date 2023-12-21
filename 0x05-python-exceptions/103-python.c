@@ -29,6 +29,30 @@ void print_python_list(PyObject *p)
             printf("bytes\n");
             print_python_bytes(item);
         }
+        else if (PyLong_Check(item))
+        {
+            printf("int\n");
+        }
+        else if (PyFloat_Check(item))
+        {
+            printf("float\n");
+         }
+        else if (PyTuple_Check(item))
+        {
+            printf("tuple\n");
+        }
+        else if (PyList_Check(item))
+        {
+            printf("list\n");
+        }
+        else if (PyUnicode_Check(item))
+        {
+            printf("str\n");
+        }
+        else
+        {
+            printf("unknown\n");
+        }
     }
 }
 
