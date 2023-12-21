@@ -19,8 +19,7 @@ void print_python_list(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
-	Py_ssize_t size;
-	char *bytes;
+	Py_buffer view;
 	int i;
 
 	if (!PyBytes_Check(p))
@@ -28,22 +27,26 @@ void print_python_bytes(PyObject *p)
 		printf("[ERROR] Invalid Bytes Object\n");
 		return;
 	}
-	size = PyBytes_Size(p);
-	bytes = PyBytes_AsString(p);
-
-	printf("[.] bytes object info\n");
-	printf("  size: %zd\n", size);
-	printf("  trying string: %s\n", bytes);
-	printf("  first 10 bytes: ");
-	for (i = 0; i < 10 && i < size; ++i)
+	if (PyObject_GetBuffer(p, &view, PyBUF_SIMPLE) != 0)
 	{
-		printf("%02x ", (unsigned char)bytes[i]);
+		PyErr_Clear();
+		printf("  [ERROR] Failed to get buffer from bytes object\n");
+		return;
 	}
-	if (size >= 10)
+	printf("[.] bytes object info\n");
+	printf("  size: %zd\n", view.len);
+	printf("  trying string: %.*s\n", (int)view.len, (char *)view.buf);
+	printf("  first 10 bytes: ");
+	for (i = 0; i < view.len && i < 10; ++i)
+	{
+		printf("%02x ", (unsigned char)(((char *)view.buf)[i]));
+	}
+	if (view.len > 10)
 	{
 		printf("00");
 	}
 	printf("\n");
+	PyBuffer_Release(&view);
 }
 
 /**
