@@ -2,25 +2,9 @@
 
 void print_python_float(PyObject *p)
 {
-    double val;
-    const char *float_str;
-    PyObject *val_repr;
-
-    if (!PyFloat_Check(p)) {
-        printf("[.] float object info\n");
-        printf("  [ERROR] Invalid Float Object\n");
-        return;
-    }
-
-    val = PyFloat_AsDouble(p);
-
-    val_repr = PyObject_Repr(p);
-    float_str = PyUnicode_AsUTF8(val_repr);
-
+    double val = PyFloat_AsDouble(p);
     printf("[.] float object info\n");
-    printf("  value: %s\n", float_str);
-
-    Py_DECREF(val_repr);
+    printf("  value: %g\n", val);
 }
 
 /**
