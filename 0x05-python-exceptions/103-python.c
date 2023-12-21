@@ -9,6 +9,7 @@ void print_python_float(PyObject *p)
     {
         printf("[.] float object info\n");
         printf("  [ERROR] Invalid Float Object\n");
+	fflush(stdout);
         return;
     }
 
@@ -19,11 +20,13 @@ void print_python_float(PyObject *p)
     {
         printf("[.] float object info\n");
         printf("  [ERROR] Failed to convert float to string\n");
+	fflush(stdout);
         return;
     }
 
     printf("[.] float object info\n");
     printf("  value: %s\n", str_val);
+    fflush(stdout);
 
     PyMem_Free(str_val);
 }
@@ -42,16 +45,19 @@ void print_python_list(PyObject *p)
     {
 	printf("[*] Python list info\n");
         printf("[ERROR] Invalid List Object\n");
+	fflush(stdout);
         return;
     }
 
     printf("[*] Python list info\n");
     printf("[*] Size of the Python List = %zd\n", list->ob_base.ob_size);
     printf("[*] Allocated = %zd\n", list->allocated);
+    fflush(stdout);
 
     for (i = 0; i < list->ob_base.ob_size; i++) {
         item = list->ob_item[i];
         printf("Element %zd: ", i);
+	fflush(stdout);
         if (PyBytes_Check(item)) {
             printf("bytes\n");
             print_python_bytes(item);
