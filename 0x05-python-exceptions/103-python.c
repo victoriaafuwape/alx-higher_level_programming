@@ -6,31 +6,38 @@
  */
 void print_python_list(PyObject *p)
 {
-	Py_ssize_t i;
-	PyObject *item;
-	PyListObject *list = (PyListObject *)p;
+    PyObject *len_func, *size;
+    Py_ssize_t list_size;
+    Py_ssize_t i;
+    PyObject *item;
 
-	if (!PyList_Check(p))
-	{
-		printf("[ERROR] Invalid List Object\n");
-		return;
-	}
+    if (!PyList_Check(p))
+    {
+        printf("[ERROR] Invalid List Object\n");
+        return;
+    }
 
-	printf("[*] Python list info\n");
-	printf("[*] Size of the Python List = %zd\n", Py_SIZE(p));
+     len_func = PyObject_GetAttrString(p, "__len__");
+    if (!len_func) return;
+    size = PyObject_CallObject(len_func, NULL);
+    if (!size) return;
+    list_size = PyLong_AsSsize_t(size);
 
-	printf("[*] Allocated = %zd\n", list->allocated);
+    printf("[*] Python list info\n");
+    printf("[*] Size of the Python List = %zd\n", list_size);
 
-	for (i = 0; i < Py_SIZE(p); i++)
-	{
-		item = list->ob_item[i];
-		printf("Element %zd: ", i);
-		if (PyBytes_Check(item))
-		{
-			printf("bytes\n");
-			print_python_bytes(item);
-		}
-	}
+    for (i = 0; i < list_size; ++i)
+    {
+        item = PyList_GetItem(p, i);
+        printf("Element %zd: ", i);
+        if (PyBytes_Check(item))
+        {
+            printf("bytes\n");
+            print_python_bytes(item);
+        }
+    }
+    Py_DECREF(len_func);
+    Py_DECREF(size);
 }
 
 /**
