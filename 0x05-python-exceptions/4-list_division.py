@@ -4,8 +4,12 @@ def list_division(my_list_1, my_list_2, list_length):
 
     for i in range(list_length):
         try:
-            element_1 = my_list_1[i] if i < len(my_list_1) else 0
-            element_2 = my_list_2[i] if i < len(my_list_2) else 0
+            # Check if the index is out of range for either list
+            if i >= len(my_list_1) or i >= len(my_list_2):
+                raise IndexError
+
+            element_1 = my_list_1[i]
+            element_2 = my_list_2[i]
 
             division_result = element_1 / element_2
             result.append(division_result)
