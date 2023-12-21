@@ -18,7 +18,9 @@ void print_python_list(PyObject *p)
     Py_ssize_t i;
     PyObject *item;
 
-    if (!PyList_Check(p)) {
+    if (!PyList_Check(p))
+    {
+	printf("[.] bytes object info\n");
         printf("[ERROR] Invalid List Object\n");
         return;
     }
