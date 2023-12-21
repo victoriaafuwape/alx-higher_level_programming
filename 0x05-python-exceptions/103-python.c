@@ -1,5 +1,13 @@
 #include "main.h"
 
+void print_python_float(PyObject *p)
+{
+    double val = PyFloat_AsDouble(p);
+
+    printf("[.] float object info\n");
+    printf("  value: %g\n", val);
+}
+
 /**
  * print_python_list - Prints basic info about Python lists
  * @p: PyObject pointer to the Python list
@@ -10,8 +18,7 @@ void print_python_list(PyObject *p)
     Py_ssize_t i;
     PyObject *item;
 
-    if (!PyList_Check(p))
-    {
+    if (!PyList_Check(p)) {
         printf("[ERROR] Invalid List Object\n");
         return;
     }
@@ -20,37 +27,24 @@ void print_python_list(PyObject *p)
     printf("[*] Size of the Python List = %zd\n", list->ob_base.ob_size);
     printf("[*] Allocated = %zd\n", list->allocated);
 
-    for (i = 0; i < list->ob_base.ob_size; i++)
-    {
+    for (i = 0; i < list->ob_base.ob_size; i++) {
         item = list->ob_item[i];
         printf("Element %zd: ", i);
-        if (PyBytes_Check(item))
-        {
+        if (PyBytes_Check(item)) {
             printf("bytes\n");
             print_python_bytes(item);
-        }
-        else if (PyLong_Check(item))
-        {
+        } else if (PyLong_Check(item)) {
             printf("int\n");
-        }
-        else if (PyFloat_Check(item))
-        {
+        } else if (PyFloat_Check(item)) {
             printf("float\n");
-         }
-        else if (PyTuple_Check(item))
-        {
+            print_python_float(item);
+        } else if (PyTuple_Check(item)) {
             printf("tuple\n");
-        }
-        else if (PyList_Check(item))
-        {
+        } else if (PyList_Check(item)) {
             printf("list\n");
-        }
-        else if (PyUnicode_Check(item))
-        {
+        } else if (PyUnicode_Check(item)) {
             printf("str\n");
-        }
-        else
-        {
+        } else {
             printf("unknown\n");
         }
     }
