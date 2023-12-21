@@ -13,7 +13,7 @@ void print_python_float(PyObject *p)
     }
 
     val = PyFloat_AsDouble(p);
-    str_val = PyOS_double_to_string(val, 'g', 17, Py_DTSF_ADD_DOT_0, NULL);
+    str_val = PyOS_double_to_string(val, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
 
     if (str_val == NULL)
     {
