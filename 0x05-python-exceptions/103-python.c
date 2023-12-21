@@ -42,13 +42,17 @@ void print_python_bytes(PyObject *p)
 	for (i = 0; i < bytes_to_print; ++i)
 	{
 		printf("%02x ", (unsigned char)(((char *)view.buf)[i]));
-		if (i != bytes_to_print - 1 || (view.len < 10 && i == 9))
+		if (i < bytes_to_print - 1)
 		{
 			printf(" ");
 		}
 	}
 	if (view.len < 10)
 	{
+		if (bytes_to_print > 0)
+		{
+			printf(" ");
+		}
 		printf("00");
 	}
 	printf("\n");
