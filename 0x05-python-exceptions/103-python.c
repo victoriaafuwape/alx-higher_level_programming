@@ -37,15 +37,19 @@ void print_python_bytes(PyObject *p)
 	printf("  size: %zd\n", view.len);
 	printf("  trying string: %.*s\n", (int)view.len, (char *)view.buf);
 
-	printf("  first 10 bytes: ", view.len < 10 ? view.len + 1 : 10);
-	bytes_to_print = view.len < 10 ? view.len : 10;
-	for (i = 0; i < bytes_to_print; ++i)
+	bytes_to_print = view.len < 10 ? view.len + 1 : 10;
+	printf("  first %d bytes: ", bytes_to_print);
+	for (i = 0; i < bytes_to_print - 1; ++i)
 	{
 		printf("%02x ", (unsigned char)(((char *)view.buf)[i]));
 	}
-	if (view.len <= 10)
+	if (view.len < 10)
 	{
 		printf("00");
+	}
+	else if (view.len == 10)
+	{
+		printf("%02x", (unsigned char)(((char *)view.buf)[9]));
 	}
 	printf("\n");
 	PyBuffer_Release(&view);
