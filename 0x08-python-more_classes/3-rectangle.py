@@ -5,13 +5,13 @@ This module further enhances the Rectangle class to include a string
 representation of the rectangle using '#' characters.
 """
 
+
 class Rectangle:
     """
     A class that defines a rectangle with properties to retrieve and set its
     width and height, methods to calculate its area and perimeter,
     and a string representation method.
     """
-
 
     def __init__(self, width=0, height=0):
         self.width = width
