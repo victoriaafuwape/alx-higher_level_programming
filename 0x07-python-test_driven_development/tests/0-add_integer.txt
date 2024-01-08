@@ -1,0 +1,19 @@
+========================================================
+          "0-add_integer" Module Testing Suite
+========================================================
+
+This testing suite is designed to rigorously evaluate the functionality of the "0-add_integer" module, focusing on the `add_integer` function.
+
+# Check for module docstring
+>>> m = __import__("0-add_integer").__doc__
+>>> len(m) > 1
+True
+
+# Import the `add_integer` function from the module
+>>> add_integer = __import__("0-add_integer").add_integer
+
+# Check for function docstring
+>>> f = __import__("0-add_integer").add_integer.__doc__
+>>> len(f) > 1
+True
+
