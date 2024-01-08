@@ -89,6 +89,18 @@ Traceback (most recent call last):
     ...
 TypeError: a must be an integer
 
+# Test for passed float('inf')
+>>> add_integer(1, float('inf'))
+Traceback (most recent call last):
+    ...
+OverflowError: cannot convert float infinity to integer
+
+# Test for passed float('NaN')
+>>> add_integer(1, float('NaN'))
+Traceback (most recent call last):
+    ...
+ValueError: cannot convert float NaN to integer
+
 # Test for additional arguments beyond 'a' and 'b'
 >>> add_integer(2, 3, 4)
 Traceback (most recent call last):
