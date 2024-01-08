@@ -49,6 +49,10 @@ True
 >>> add_integer(5, 7.0)
 12
 
+# Test regular addition with floats, both cast to integers
+>>> add_integer(int(2.5), int(3.5))
+5
+
 # Test regular addition with negative float, casting to integer
 >>> add_integer(-2.5, 4.5)
 2
@@ -56,6 +60,10 @@ True
 # Test regular addition with negative float, both cast to integers
 >>> add_integer(-1.1, -2.9)
 -3
+
+# Test for passed None with default 'b' value (98)
+>>> add_integer(1)
+99
 
 # Test for passed float('inf')
 >>> add_integer(1, float('inf'))
