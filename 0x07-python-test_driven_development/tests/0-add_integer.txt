@@ -17,3 +17,85 @@ True
 >>> len(f) > 1
 True
 
+# Test regular addition with positive integers
+>>> add_integer(2, 3)
+5
+
+# Test regular addition with negative integers
+>>> add_integer(-2, -3)
+-5
+
+# Test regular addition with a mix of positive and negative integers
+>>> add_integer(2, -3)
+-1
+
+# Test regular addition with large integers
+>>> add_integer(999999999999999999, 1)
+1000000000000000000
+
+# Test regular addition with zero
+>>> add_integer(0, 42)
+42
+
+# Test regular addition with a mix of zero and non-zero
+>>> add_integer(0, 0)
+0
+
+# Test regular addition with floats, casting to integers
+>>> add_integer(2.1, 4.9)
+6
+
+# Test regular addition with floats, one cast to integer
+>>> add_integer(5, 7.0)
+12
+
+# Test regular addition with negative float, casting to integer
+>>> add_integer(-2.5, 4.5)
+2
+
+# Test regular addition with negative float, both cast to integers
+>>> add_integer(-1.1, -2.9)
+-3
+
+# Test for passed float('inf')
+>>> add_integer(1, float('inf'))
+Traceback (most recent call last):
+    ...
+OverflowError: cannot convert float infinity to integer
+
+# Test for passed float('NaN')
+>>> add_integer(1, float('NaN'))
+Traceback (most recent call last):
+    ...
+ValueError: cannot convert float NaN to integer
+
+
+# Test for a string as input
+>>> add_integer("2", 3)
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer
+
+# Test for a list as input
+>>> add_integer([2], 3)
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer
+
+# Test for a dictionary as input
+>>> add_integer({"a": 2}, 3)
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer
+
+# Test for a boolean as input
+>>> add_integer(True, 3)
+Traceback (most recent call last):
+    ...
+TypeError: a must be an integer
+
+# Test for additional arguments beyond 'a' and 'b'
+>>> add_integer(2, 3, 4)
+Traceback (most recent call last):
+    ...
+TypeError: add_integer() takes from 1 to 2 positional arguments but 3 were given
